@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#2563eb">
+    <title>Inventory - HealthMeter</title>
+    <link rel="manifest" href="../manifest.json">
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <nav class="bottom-nav">
+        <a href="../index.html" class="nav-item">
+            <span class="nav-icon">📊</span>
+            <span class="nav-label">Dashboard</span>
+        </a>
+        <a href="log.html" class="nav-item">
+            <span class="nav-icon">✏️</span>
+            <span class="nav-label">Log</span>
+        </a>
+        <a href="inventory.html" class="nav-item active">
+            <span class="nav-icon">📦</span>
+            <span class="nav-label">Inventory</span>
+        </a>
+        <a href="history.html" class="nav-item">
+            <span class="nav-icon">📅</span>
+            <span class="nav-label">History</span>
+        </a>
+        <a href="settings.html" class="nav-item">
+            <span class="nav-icon">⚙️</span>
+            <span class="nav-label">Settings</span>
+        </a>
+    </nav>
+
+    <div class="page-container">
+        <h1 class="page-title">Inventory</h1>
+
+        <div class="tabs">
+            <button class="tab active" data-tab="food">Food</button>
+            <button class="tab" data-tab="workouts">Workouts</button>
+        </div>
+
+        <div id="foodTab" class="tab-content">
+            <div class="section">
+                <div class="section-title">
+                    <span>Food Items</span>
+                    <button class="btn btn-primary btn-sm" onclick="showModal('foodModal')">+ Add</button>
+                </div>
+                <div class="form-group mt-2">
+                    <input type="text" id="foodSearch" placeholder="Search foods..." oninput="filterFood()">
+                </div>
+                <div id="foodList"></div>
+            </div>
+        </div>
+
+        <div id="workoutsTab" class="tab-content hidden">
+            <div class="section">
+                <div class="section-title">
+                    <span>Workout Types</span>
+                    <button class="btn btn-primary btn-sm" onclick="showModal('workoutModal')">+ Add</button>
+                </div>
+                <div class="form-group mt-2">
+                    <input type="text" id="workoutSearch" placeholder="Search workouts..." oninput="filterWorkouts()">
+                </div>
+                <div id="workoutList"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="foodModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add Food Item</h3>
+                <button class="modal-close" onclick="hideModal('foodModal')">&times;</button>
+            </div>
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" id="foodName" placeholder="e.g., Apple">
+            </div>
+            <div class="form-group">
+                <label>Calories per unit</label>
+                <input type="number" id="foodCalories" placeholder="calories">
+            </div>
+            <div class="form-group">
+                <label>Protein (g)</label>
+                <input type="number" id="foodProtein" placeholder="protein" step="0.1">
+            </div>
+            <div class="form-group">
+                <label>Carbs (g)</label>
+                <input type="number" id="foodCarbs" placeholder="carbs" step="0.1">
+            </div>
+            <div class="form-group">
+                <label>Fat (g)</label>
+                <input type="number" id="foodFat" placeholder="fat" step="0.1">
+            </div>
+            <button class="btn btn-primary btn-block" onclick="addFood()">Add Food</button>
+        </div>
+    </div>
+
+    <div id="workoutModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add Workout Type</h3>
+                <button class="modal-close" onclick="hideModal('workoutModal')">&times;</button>
+            </div>
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" id="workoutName" placeholder="e.g., Pushups">
+            </div>
+            <div class="form-group">
+                <label>Unit Type</label>
+                <input type="text" id="workoutUnit" placeholder="e.g., reps, minutes">
+            </div>
+            <div class="form-group">
+                <label>Calories per unit</label>
+                <input type="number" id="workoutCalories" placeholder="calories burned" step="0.1">
+            </div>
+            <button class="btn btn-primary btn-block" onclick="addWorkout()">Add Workout</button>
+        </div>
+    </div>
+
+    <script src="../js/db.js"></script>
+    <script src="../js/inventory.js"></script>
+</body>
+</html>

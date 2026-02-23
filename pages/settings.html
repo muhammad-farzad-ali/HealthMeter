@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#2563eb">
+    <title>Settings - HealthMeter</title>
+    <link rel="manifest" href="../manifest.json">
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <nav class="bottom-nav">
+        <a href="../index.html" class="nav-item">
+            <span class="nav-icon">📊</span>
+            <span class="nav-label">Dashboard</span>
+        </a>
+        <a href="log.html" class="nav-item">
+            <span class="nav-icon">✏️</span>
+            <span class="nav-label">Log</span>
+        </a>
+        <a href="inventory.html" class="nav-item">
+            <span class="nav-icon">📦</span>
+            <span class="nav-label">Inventory</span>
+        </a>
+        <a href="history.html" class="nav-item">
+            <span class="nav-icon">📅</span>
+            <span class="nav-label">History</span>
+        </a>
+        <a href="settings.html" class="nav-item active">
+            <span class="nav-icon">⚙️</span>
+            <span class="nav-label">Settings</span>
+        </a>
+    </nav>
+
+    <div class="page-container">
+        <h1 class="page-title">Settings</h1>
+
+        <div class="section">
+            <h3 class="section-title">Daily Targets</h3>
+            <div class="form-group">
+                <label>Calories</label>
+                <input type="number" id="targetCalories" onchange="saveTargets()">
+            </div>
+            <div class="form-group">
+                <label>Protein (g)</label>
+                <input type="number" id="targetProtein" onchange="saveTargets()">
+            </div>
+            <div class="form-group">
+                <label>Carbs (g)</label>
+                <input type="number" id="targetCarbs" onchange="saveTargets()">
+            </div>
+            <div class="form-group">
+                <label>Fat (g)</label>
+                <input type="number" id="targetFat" onchange="saveTargets()">
+            </div>
+            <div class="form-group">
+                <label>Water (ml)</label>
+                <input type="number" id="targetWater" onchange="saveTargets()">
+            </div>
+            <div class="form-group">
+                <label>Steps</label>
+                <input type="number" id="targetSteps" onchange="saveTargets()">
+            </div>
+        </div>
+
+        <div class="section">
+            <h3 class="section-title">Data Management</h3>
+            <button class="btn btn-primary btn-block mb-2" onclick="exportData()">Export Data (JSON)</button>
+            <button class="btn btn-secondary btn-block mb-2" onclick="document.getElementById('importFile').click()">Import Data (JSON)</button>
+            <input type="file" id="importFile" accept=".json" style="display: none" onchange="importData(event)">
+            <button class="btn btn-danger btn-block mt-4" onclick="clearAllData()">Clear All Data</button>
+        </div>
+
+        <div class="section">
+            <h3 class="section-title">About</h3>
+            <p class="text-center">HealthMeter v1.0</p>
+            <p class="text-center" style="color: var(--text-light); font-size: 0.85rem;">
+                A PWA for tracking your daily health and wellbeing
+            </p>
+        </div>
+    </div>
+
+    <script src="../js/db.js"></script>
+    <script src="../js/settings.js"></script>
+</body>
+</html>

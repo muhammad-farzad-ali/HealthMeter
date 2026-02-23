@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#2563eb">
+    <title>History - HealthMeter</title>
+    <link rel="manifest" href="../manifest.json">
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <nav class="bottom-nav">
+        <a href="../index.html" class="nav-item">
+            <span class="nav-icon">📊</span>
+            <span class="nav-label">Dashboard</span>
+        </a>
+        <a href="log.html" class="nav-item">
+            <span class="nav-icon">✏️</span>
+            <span class="nav-label">Log</span>
+        </a>
+        <a href="inventory.html" class="nav-item">
+            <span class="nav-icon">📦</span>
+            <span class="nav-label">Inventory</span>
+        </a>
+        <a href="history.html" class="nav-item active">
+            <span class="nav-icon">📅</span>
+            <span class="nav-label">History</span>
+        </a>
+        <a href="settings.html" class="nav-item">
+            <span class="nav-icon">⚙️</span>
+            <span class="nav-label">Settings</span>
+        </a>
+    </nav>
+
+    <div class="page-container">
+        <h1 class="page-title">History</h1>
+
+        <div class="tabs">
+            <button class="tab active" data-view="daily">Daily</button>
+            <button class="tab" data-view="weekly">Weekly</button>
+            <button class="tab" data-view="monthly">Monthly</button>
+        </div>
+
+        <div class="section">
+            <div class="chart-container">
+                <canvas id="calorieChart"></canvas>
+            </div>
+        </div>
+
+        <div class="section">
+            <h3 class="section-title">Entries</h3>
+            <div id="historyList"></div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../js/db.js"></script>
+    <script src="../js/history.js"></script>
+</body>
+</html>

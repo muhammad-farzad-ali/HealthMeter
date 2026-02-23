@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#2563eb">
+    <title>Log Entry - HealthMeter</title>
+    <link rel="manifest" href="../manifest.json">
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <nav class="bottom-nav">
+        <a href="../index.html" class="nav-item">
+            <span class="nav-icon">📊</span>
+            <span class="nav-label">Dashboard</span>
+        </a>
+        <a href="log.html" class="nav-item active">
+            <span class="nav-icon">✏️</span>
+            <span class="nav-label">Log</span>
+        </a>
+        <a href="inventory.html" class="nav-item">
+            <span class="nav-icon">📦</span>
+            <span class="nav-label">Inventory</span>
+        </a>
+        <a href="history.html" class="nav-item">
+            <span class="nav-icon">📅</span>
+            <span class="nav-label">History</span>
+        </a>
+        <a href="settings.html" class="nav-item">
+            <span class="nav-icon">⚙️</span>
+            <span class="nav-label">Settings</span>
+        </a>
+    </nav>
+
+    <div class="page-container">
+        <h1 class="page-title">Log Entry</h1>
+        
+        <div class="form-group">
+            <label>Date</label>
+            <input type="date" id="logDate">
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" data-tab="food">Food</button>
+            <button class="tab" data-tab="exercise">Exercise</button>
+            <button class="tab" data-tab="sleep">Sleep</button>
+            <button class="tab" data-tab="other">Other</button>
+        </div>
+
+        <div id="foodTab" class="tab-content">
+            <div class="section">
+                <div class="section-title">
+                    <span>Food Consumed</span>
+                    <button class="btn btn-primary btn-sm" onclick="showModal('foodModal')">+ Add</button>
+                </div>
+                <div id="foodList"></div>
+            </div>
+        </div>
+
+        <div id="exerciseTab" class="tab-content hidden">
+            <div class="section">
+                <div class="section-title">
+                    <span>Steps</span>
+                </div>
+                <div class="form-group">
+                    <input type="number" id="stepsInput" placeholder="Enter steps" onchange="saveSteps()">
+                </div>
+            </div>
+            <div class="section">
+                <div class="section-title">
+                    <span>Workouts</span>
+                    <button class="btn btn-primary btn-sm" onclick="showModal('workoutModal')">+ Add</button>
+                </div>
+                <div id="workoutList"></div>
+            </div>
+        </div>
+
+        <div id="sleepTab" class="tab-content hidden">
+            <div class="section">
+                <div class="section-title">
+                    <span>Sleep Sessions</span>
+                    <button class="btn btn-primary btn-sm" onclick="showModal('sleepModal')">+ Add</button>
+                </div>
+                <div id="sleepList"></div>
+            </div>
+        </div>
+
+        <div id="otherTab" class="tab-content hidden">
+            <div class="section">
+                <h3 class="section-title">Hydration</h3>
+                <div class="form-group">
+                    <label>Water (ml)</label>
+                    <input type="number" id="waterInput" placeholder="ml" onchange="saveHydration()">
+                </div>
+                <div class="form-group">
+                    <label>Caffeine (ml)</label>
+                    <input type="number" id="caffeineInput" placeholder="ml" onchange="saveHydration()">
+                </div>
+            </div>
+            <div class="section">
+                <h3 class="section-title">Wellbeing</h3>
+                <div class="form-group">
+                    <label>Meditation (minutes)</label>
+                    <input type="number" id="meditationInput" placeholder="minutes" onchange="saveWellbeing()">
+                </div>
+                <div class="form-group">
+                    <label>Work Hours</label>
+                    <input type="number" id="workHoursInput" placeholder="hours" onchange="saveWellbeing()">
+                </div>
+                <div class="form-group">
+                    <label>Screen Time (minutes)</label>
+                    <input type="number" id="screenTimeInput" placeholder="minutes" onchange="saveWellbeing()">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="foodModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add Food</h3>
+                <button class="modal-close" onclick="hideModal('foodModal')">&times;</button>
+            </div>
+            <div class="form-group">
+                <label>Select Food</label>
+                <select id="foodSelect"></select>
+            </div>
+            <div class="form-group">
+                <label>Quantity</label>
+                <input type="number" id="foodQuantity" value="1" min="0.1" step="0.1">
+            </div>
+            <button class="btn btn-primary btn-block" onclick="addFood()">Add</button>
+        </div>
+    </div>
+
+    <div id="workoutModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add Workout</h3>
+                <button class="modal-close" onclick="hideModal('workoutModal')">&times;</button>
+            </div>
+            <div class="form-group">
+                <label>Select Workout</label>
+                <select id="workoutSelect"></select>
+            </div>
+            <div class="form-group">
+                <label>Count/Reps</label>
+                <input type="number" id="workoutCount" value="1" min="1">
+            </div>
+            <button class="btn btn-primary btn-block" onclick="addWorkout()">Add</button>
+        </div>
+    </div>
+
+    <div id="sleepModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add Sleep</h3>
+                <button class="modal-close" onclick="hideModal('sleepModal')">&times;</button>
+            </div>
+            <div class="form-group">
+                <label>Bedtime</label>
+                <input type="time" id="sleepStart">
+            </div>
+            <div class="form-group">
+                <label>Wake up</label>
+                <input type="time" id="sleepEnd">
+            </div>
+            <button class="btn btn-primary btn-block" onclick="addSleep()">Add</button>
+        </div>
+    </div>
+
+    <script src="../js/db.js"></script>
+    <script src="../js/log.js"></script>
+</body>
+</html>
