@@ -96,12 +96,20 @@ function renderDashboard(data, targets) {
         entriesHTML += `<li>💧 Water: ${data.hydration.water_ml}ml</li>`;
     }
 
+    if (data.hydration?.caffeine_ml > 0) {
+        entriesHTML += `<li>☕ Caffeine: ${data.hydration.caffeine_ml}ml</li>`;
+    }
+
     if (data.meditation_min > 0) {
         entriesHTML += `<li>🧘 Meditation: ${data.meditation_min}min</li>`;
     }
 
     if (data.work_hours > 0) {
         entriesHTML += `<li>💼 Work: ${data.work_hours}h</li>`;
+    }
+
+    if (data.screen_time_min > 0) {
+        entriesHTML += `<li>📱 Screen time: ${data.screen_time_min}min</li>`;
     }
 
     if (!entriesHTML) {
@@ -128,7 +136,10 @@ function renderDashboard(data, targets) {
 
     updateElement('stepsValue', data.steps || 0);
     updateElement('waterValue', data.hydration?.water_ml || 0);
+    updateElement('caffeineValue', data.hydration?.caffeine_ml || 0);
     updateElement('meditationValue', data.meditation_min || 0);
+    updateElement('workHoursValue', data.work_hours || 0);
+    updateElement('screenTimeValue', data.screen_time_min || 0);
 
     const sleepHours = calculateTotalSleep(data.sleep);
     updateElement('sleepValue', sleepHours + 'h');

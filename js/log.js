@@ -170,7 +170,7 @@ async function removeWorkout(index) {
     renderWorkoutList(routine.workouts);
 }
 
-function renderWorkouts(workouts) {
+function renderWorkoutList(workouts) {
     const list = document.getElementById('workoutList');
     if (!workouts || workouts.length === 0) {
         list.innerHTML = '<p class="empty-state">No workouts logged</p>';
