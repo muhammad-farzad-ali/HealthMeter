@@ -192,3 +192,45 @@ async function saveTodayRoutine(data) {
     }
     await loadTodayData();
 }
+
+let deferredPrompt;
+const installBanner = document.createElement('div');
+installBanner.id = 'installBanner';
+installBanner.style.cssText = `
+    position: fixed;
+    bottom: 80px;
+    left: 0;
+    right: 0;
+    background: #2563eb;
+    color: white;
+    padding: 16px;
+    text-align: center;
+    display: none;
+    z-index: 99;
+`;
+
+if ('serviceWorker' in navigator) {
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        installBanner.innerHTML = `
+            <span>Install HealthMeter for offline access</span>
+            <button id="installBtn" style="margin-left: 12px; padding: 8px 16px; background: white; color: #2563eb; border: none; border-radius: 4px; cursor: pointer; font-weight: 600;">Install</button>
+        `;
+        document.body.appendChild(installBanner);
+        installBanner.style.display = 'block';
+
+        document.getElementById('installBtn')?.addEventListener('click', async () => {
+            if (!deferredPrompt) return;
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            deferredPrompt = null;
+            installBanner.style.display = 'none';
+        });
+    });
+
+    window.addEventListener('appinstalled', () => {
+        installBanner.style.display = 'none';
+        deferredPrompt = null;
+    });
+}
